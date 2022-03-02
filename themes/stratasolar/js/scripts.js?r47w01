@@ -1,0 +1,75 @@
+ (function($){
+     //Megamenu
+    $('.navbar-header a, #navbar-collapse a').mouseenter(function() {
+        $('.megamenu-item.expand').removeClass('expand');
+        $('.megamenu-hover.open').removeClass('open');
+        if (widthGreater(993)) {
+            if ($(this).hasClass('megamenu-hover')) {
+                $target = $(this).attr('rel');
+                $item = $('#' + $target);
+                if (!$item.hasClass('expand')) {
+                    $(this).addClass('open');
+                    $item.addClass('expand');
+                }
+            }
+        }
+    });
+    $('header').mouseleave(function() {
+        if (widthGreater(993)) {
+            $('.megamenu-item.expand').removeClass('expand');
+            $('.megamenu-hover.open').removeClass('open');
+        }
+    });
+
+    mobileToggle();
+
+    $(window).on('resize', function(){
+        mobileToggle();
+    });
+
+    function widthGreater(width) {
+        var $windowWidth = $(window).width();
+        if ($windowWidth >= width) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    function widthSmaller(width) {
+        var $windowWidth = $(window).width();
+        if ($windowWidth <= width) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    function mobileToggle() {
+        if (widthSmaller(992)) {
+            $('.megamenu-hover').addClass('dropdown-toggle');
+            $('.megamenu-hover').attr('data-target', '#');
+            $('.megamenu-hover').attr('data-toggle', 'dropdown');
+        }
+        else {
+            $('.megamenu-hover').removeClass('dropdown-toggle');
+            $('.megamenu-hover').removeAttr('data-target');
+            $('.megamenu-hover').removeAttr('data-toggle');
+        }
+    }
+
+    //
+    // $('.dropdown').mouseenter(function(){
+    //     if(!$('.navbar-toggle').is(':visible')) { 
+    //         if(!$(this).hasClass('open')) { 
+    //             $('.dropdown-toggle', this).trigger('click');
+    //             $('.dropdown-toggle', this).on('click', function(){
+    //                 window.location.href = $(this).attr('href');
+    //             });
+    //         }
+    //     }
+    // }).mouseleave(function(){
+    //     $('.dropdown-toggle', this).off('click');
+    // });
+})(jQuery);
